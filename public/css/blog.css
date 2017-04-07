@@ -269,3 +269,9 @@ body, html {
 {
     -webkit-backface-visibility: hidden;
 }
+div.a,.a1 {
+width: 50px;
+height:50px;
+position:fixed;
+    
+}

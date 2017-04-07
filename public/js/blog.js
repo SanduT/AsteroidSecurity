@@ -12,18 +12,50 @@ function closeNav() {
     $("#openbtn").css({opacity: 0, visibility: "visible"}).animate({opacity: 0.9}, 'slow');
 }
 
-$('.social_blog').mouseenter(function()
-{
-	var location = this;
-	if($(location).hasClass("changed") == false)
-	{
-	$(this).addClass('changed');
-	$(this).find('.share').fadeOut('slow', function()
-	{
-	 $(location).find('.fb_share').css({opacity: 0, visibility: "visible"}).animate({opacity: 0.7}, 'slow');
-	}
-	 );
-	}
-	console.log($(location).hasClass("changed"));
+
+
+$(document).ready(function(){
+    animateDiv('.a1');
+ 
+    
 });
 
+function makeNewPosition(){
+    
+    // Get viewport dimensions (remove the dimension of the div)
+    var h = $(window).height() - 50;
+    var w = $(window).width() - 50;
+    
+    var nh = Math.floor(Math.random() * h);
+    var nw = Math.floor(Math.random() * w);
+    
+    return [nh,nw];    
+    
+}
+
+function animateDiv(str){
+    var newq = makeNewPosition();
+    var oldq = $(str).offset();
+
+    var speed = calcSpeed([oldq.top, oldq.left], newq);
+    
+    $(str).animate({ top: newq[0], left: newq[1] }, speed, function(){
+      animateDiv();        
+    });
+    
+};
+
+function calcSpeed(prev, next) {
+    
+    var x = Math.abs(prev[1] - next[1]);
+    var y = Math.abs(prev[0] - next[0]);
+    
+    var greatest = x > y ? x : y;
+    
+    var speedModifier = 0.1;
+
+    var speed = Math.ceil(greatest/speedModifier);
+
+    return speed;
+
+}
