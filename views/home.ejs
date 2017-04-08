@@ -1,0 +1,109 @@
+<% include partials/header.ejs %>
+
+<div class="parallax">
+<h3 style="padding-bottom: 10px;">Asteroid Security</h3>
+<div class="container">
+<div class="row">
+<div class="col-lg-6" style="padding-top: 40px;">
+<p>Real-time asteroid surveillance Project, <span style="font-family: Montalban_Bold; font-size:15px" > every asteroid on screen is , or will in the future fly near or collide with Earth </span>.Sizes and velocities are kept relative to the screen and to the real asteroid.</p>
+</div>
+<div class="col-lg-6">
+<p>Click on the asteroids to find out more about them <span style="font-size: 50px">&#8631; </span></p>
+<img src="img/asteroid1.png" id = "static_a" style="width: 5%; display: block;">
+</div>
+</div>
+</div>
+<img src="./img/earth.png" style="display: block;margin: auto;width:  40%; padding-top: 20px;">
+<h3 style="padding-top: 200px">If you fear the dangers from outer space subscribe to our newsletter:</h3>
+<div class="container">
+<div class="row">
+<div class="col-lg-12">
+<form method="POST" action="/mailall">
+<input type="email" name="mail" placeholder="Enter your email" style="width: 100%;height: 30px;background-color: rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.1) ">
+<div class="pad"></div>
+<button type="submit" value="I want to know when a dangerous asteroid comes near Earth">I want to know when a dangerous asteroid comes near Earth</button>
+</form>
+<h1><%= greeting %></h1>
+</div>
+</div>
+</div>
+<% var i = 0; var j = 0; %>
+<% for(key in asteroids["near_earth_objects"]) { %>
+
+<% asteroids["near_earth_objects"][key].forEach(function(asteroid){ %>
+<% i = i+1; %>
+<% if  (i % 6 == 1)	{ %>	
+<div class='<%= asteroid["neo_reference_id"] %>' style ="width: 50px;height:50px;position:fixed;"><a href="/about/<%= asteroid["neo_reference_id"] %>"><img src="img/asteroid1.gif" 
+style="height: <%= 50 * asteroid["estimated_diameter"]["kilometers"]["estimated_diameter_max"] %>px;width: <%= 50 * asteroid["estimated_diameter"]["kilometers"]["estimated_diameter_max"] %>px;"></a></div>
+<% } %>
+<% if  (i % 6 == 2)	{ %>	
+<div class='<%= asteroid["neo_reference_id"] %>' style ="width: 50px;height:50px;position:fixed;"><a href="/about/<%= asteroid["neo_reference_id"] %>"><img src="img/asteroid2.gif" 
+style="height: <%= 50 * asteroid["estimated_diameter"]["kilometers"]["estimated_diameter_max"] %>px;width: <%= 50 * asteroid["estimated_diameter"]["kilometers"]["estimated_diameter_max"] %>px;"></a></div>
+<% } %>
+<% if  (i % 6 == 3)	{ %>	
+<div class='<%= asteroid["neo_reference_id"] %>' style ="width: 50px;height:50px;position:fixed;"><a href="/about/<%= asteroid["neo_reference_id"] %>"><img src="img/asteroid3.gif" 
+style="height: <%= 50 * asteroid["estimated_diameter"]["kilometers"]["estimated_diameter_max"] %>px;width: <%= 50 * asteroid["estimated_diameter"]["kilometers"]["estimated_diameter_max"] %>px;"></a></div>
+<%  } %>
+<% if  (i % 6 == 4)	{ %>	
+<div class='<%= asteroid["neo_reference_id"] %>' style ="width: 50px;height:50px;position:fixed;"><a href="/about/<%= asteroid["neo_reference_id"] %>"><img src="img/asteroid4.gif" 
+style="height: <%= 50 * asteroid["estimated_diameter"]["kilometers"]["estimated_diameter_max"] %>px;width: <%= 50 * asteroid["estimated_diameter"]["kilometers"]["estimated_diameter_max"] %>px;"></a></div>
+<% } %> 
+<% if  ((i % 6 == 5) || (i % 6 == 0))	{ %>	
+<div class='<%= asteroid["neo_reference_id"] %>' style ="width: 50px;height:50px;position:fixed;"><a href="/about/<%= asteroid["neo_reference_id"] %>"><img src="img/asteroid5.gif" 
+style="height: <%= 50 * asteroid["estimated_diameter"]["kilometers"]["estimated_diameter_max"] %>px;width: <%= 50 * asteroid["estimated_diameter"]["kilometers"]["estimated_diameter_max"] %>px;"></a></div>
+<% } %>
+
+<script>
+$(document).ready(function(){
+
+    animateDiv<%= asteroid["neo_reference_id"] %>();
+       
+});
+
+function makeNewPosition<%= asteroid["neo_reference_id"] %>(){
+    
+    // Get viewport dimensions (remove the dimension of the div)
+    var h = $(window).height() - 50;
+    var w = $(window).width() - 50;
+    
+    var nh = Math.floor(Math.random() * h);
+    var nw = Math.floor(Math.random() * w);
+    
+    return [nh,nw];    
+    
+}
+
+function animateDiv<%= asteroid["neo_reference_id"] %>(){
+    var newq = makeNewPosition<%= asteroid["neo_reference_id"] %>();
+    var oldq = $('.<%= asteroid["neo_reference_id"] %>').offset();
+
+    var speed = calcSpeed<%= asteroid["neo_reference_id"] %>([oldq.top, oldq.left], newq);
+    
+    $('.<%= asteroid["neo_reference_id"] %>').animate({ top: newq[0], left: newq[1] }, speed, function(){
+      animateDiv<%= asteroid["neo_reference_id"] %>();        
+    });
+    
+};
+
+function calcSpeed<%= asteroid["neo_reference_id"] %>(prev, next) {
+    
+    var x = Math.abs(prev[1] - next[1]);
+    var y = Math.abs(prev[0] - next[0]);
+    
+    var greatest = x > y ? x : y;
+    
+    var speedModifier = (<%= asteroid["close_approach_data"][0]["relative_velocity"]["kilometers_per_second"] %>) / 500;
+
+    var speed = Math.ceil(greatest/speedModifier);
+
+    return speed;
+
+}
+</script>
+<% }); %>
+<% } %>
+
+</div>
+
+
+<%include partials/footer.ejs %>

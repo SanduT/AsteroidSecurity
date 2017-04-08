@@ -1,0 +1,29 @@
+{
+  "name": "nasa_planets_webapp",
+  "version": "1.0.0",
+  "description": "A webapp for the ITEC contest",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "\u0016https://github.com/SanduT/AsteroidSecurity"
+  },
+  "keywords": [
+    "planets",
+    "asteroids",
+    "security",
+    "educational"
+  ],
+  "author": "Sandu Tudor",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "ejs": "^2.5.6",
+    "express": "^4.15.2",
+    "mongoose": "^4.9.3",
+    "node-mailer": "^0.1.1",
+    "request": "^2.81.0"
+  }
+}

@@ -183,9 +183,10 @@ body, html {
     /* The image used */
 
     /* Full height */
-    height: 1000px; 
+    height: 1500px; 
 
    /* Create the parallax scrolling effect */
+    background: url('../img/cosmos.jpg');
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
@@ -274,4 +275,74 @@ width: 50px;
 height:50px;
 position:fixed;
     
+}
+@font-face { font-family: Montalban; src: url('../fonts/Montalban.otf'); } 
+@font-face { font-family: Montalban_Bold; src: url('../fonts/Montalban_Bold.otf'); } 
+h1,h3
+{
+  font-family: Montalban;
+  color: white;
+  text-align: center;
+  padding-top: 100px;
+  margin-top: 0px
+}
+p,a
+{
+  font-family: Montalban;
+  color: white;
+}
+input
+{
+padding-left: 5px;
+font-family: Montalban;
+  color: white;
+}
+button
+{
+  display: block;
+  margin: auto;
+  font-family: Montalban;
+  color: white;
+  background-color: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.1);
+}
+.pad
+{
+  padding: 10px;
+}
+h4
+{
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding: 5px;
+  color: white;
+  font-family: Montalban;
+
+}
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+    background-color: rgba(255,255,255,0.1);
+    background-image: none;
+    color: rgb(0, 0, 0);
+}
+#static_a
+{
+  margin-left: 95%;
+}
+@media screen and (min-width: 320px){
+    #static_a
+{
+  margin-left: 76%;
+}
+}
+@media screen and (min-width: 1024px){
+    #static_a
+{
+  margin-left: 57%;
+}
+}
+@media (min-width: 1200px){
+    #static_a
+{
+  margin-left: 95%;
+}
 }
